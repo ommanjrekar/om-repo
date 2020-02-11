@@ -19,6 +19,7 @@
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http,$filter) {
   $scope.main=false; 
+  $scope.train=[];
   $scope.save = function(abc,bcd,dat){ 
       $scope.main=true; 
       $scope.main=$filter('date')(dat, 'dd-MM-yyyy');
@@ -27,7 +28,7 @@ app.controller('myCtrl', function($scope, $http,$filter) {
     //ta7aelkksu ----lxcbzr82bf
     $http.get("https://api.railwayapi.com/v2/between/source/"+abc+"/dest/"+bcd+"/date/"+date+"/apikey/ta7aelkksu/",
   ).then(function (response) {
-      $scope.train = response.data;
+      $scope.train = response.data.trains;
       // $scope.trains ="29:89";
       // $scope.traind= $scope.trains.slice(0, 2);
       // $scope.trainds= $scope.trains.slice(3, 6);
@@ -236,35 +237,25 @@ img{
     <table class="table" ng-show="main">
     <thead class="thead-inverse"> 
       <tr>
-        <th>Sno</th>
+        <th>Srno</th>
         <th>Train No</th>
         <th>Train name</th>
-        
-
-      
-           
-            <th align="center">Runs on (From station)</th>
-           
-        
+        <th align="center">Runs on (From station)</th>
         <th>From</th>
         <th>Departure</th>
         <th align="center">To</th>
         <th>Arrival</th>
         <th>Travel time</th>
       
-        
-
       </tr>
     </thead>
     
     <tbody>
-        
       <tr ng-repeat="x in train">
-        
-        <td>{{x[0]['name']}}</td>
-        <td>{{x.name}}</td>
+        <td>{{$index}}</td>
         <td>{{x.number}}</td>
-
+        <td>{{x.name}}</td>
+        
         <td class="piy">
         <span ng-repeat="y in x.days">
 
@@ -275,21 +266,21 @@ img{
 
       &nbsp;&nbsp;&nbsp;&nbsp;{{y.runs}}&nbsp;&nbsp;&nbsp;
       </span>
-           <!-- <td>J</td>
+        <!-- <td>J</td>
             <td>J</td>
              <td>J</td>
              <td>J</td>
              <td>J</td>
              <td>J</td>
-             <td>J</td> -->
+             <td>J</td>  -->
 
         </td>
 
 
-        <td>{{x.from.name}}&nbsp;/&nbsp;{{x.from.code}}</td>
+        <td>{{x.from_station.name}}&nbsp;/&nbsp;{{x.from_station.code}}</td>
         <td align="center">{{x.src_departure_time}}</td>
 
-        <td>{{x.to.name}}&nbsp;/&nbsp;{{x.to.code}}</td>
+        <td>{{x.to_station.name}}&nbsp;/&nbsp;{{x.to_station.code}}</td>
         <td>{{x.dest_arrival_time}}</td>
         <td>{{x.travel_time}}</td>
 
