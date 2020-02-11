@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
+<head>
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http,$filter) {
+  $scope.main=false; 
+  $scope.save = function(abc,bcd,dat){ 
+      $scope.main=true; 
+      $scope.main=$filter('date')(dat, 'dd-MM-yyyy');
+    var date=$scope.main;
+    console.log(date);
+    //ta7aelkksu ----lxcbzr82bf
+    $http.get("https://api.railwayapi.com/v2/between/source/"+abc+"/dest/"+bcd+"/date/"+date+"/apikey/ta7aelkksu/",
+  ).then(function (response) {
+      $scope.train = response.data;
+      // $scope.trains ="29:89";
+      // $scope.traind= $scope.trains.slice(0, 2);
+      // $scope.trainds= $scope.trains.slice(3, 6);
+      //  $scope.t=   parseInt($scope.traind);
+      //   $scope.ts=   parseInt($scope.trainds);     
+
+      console.log($scope.train);
+
+    }, 
+    function myError(response) {
+      $scope.myWelcome3 = response.statusText;
+      console.log($scope.myWelcome3);
+  });
+
+} 
+
+
+
+});
+</script>
+
+
+
+<style type="text/css">
+  
+    
+    
+    .table
+    {
+      background-color: antiquewhite;
+
+         border-top-left-radius:18px;
+        border-top-right-radius:18px;
+
+    
+    }
+
+
+  
+
+
+
+  input[type='text']
+{
+    border-radius:6px;
+    border-width: 1px;
+    width:200px;
+    height:36px;
+}
+
+  ::-webkit-input-placeholder{
+        text-align: center;
+        color:green;
+    
+    }
+
+
+input[type='date']
+{
+    border-radius:8px;
+    border-width: 1px;
+    height:36px;
+  }
+
+  .main{
+
+    margin-top: 30px;
+
+  }
+
+
+button[type='submit']
+{
+   background-color: green;
+   width: 200px;
+  margin-left:20px ;
+
+  }
+
+  .second{
+
+    margin-top: 30px;
+  }
+
+
+
+nav.navbar-webmaster { background: #1b242c;}
+nav.navbar-webmaster a { color: #fff; }
+nav.navbar-webmaster ul.navbar-nav a { color: #fff; border-style: solid; border-width: 2px 0 0 0; border-color:#1b242c; }
+nav.navbar-webmaster ul.navbar-nav a:hover,
+nav.navbar-webmaster ul.navbar-nav a:visited,
+nav.navbar-webmaster ul.navbar-nav a:focus,
+nav.navbar-webmaster ul.navbar-nav a:active { background:#3b4045; }
+nav.navbar-webmaster ul.navbar-nav a:hover {border-color: #5fb000; }
+nav.navbar-webmaster li.divider { background: #ccc; }
+nav.navbar-webmaster button.navbar-toggle { background:  #1b242c; border-radius: 2px; }
+nav.navbar-webmaster button.navbar-toggle:hover { background: #999; }
+nav.navbar-webmaster button.navbar-toggle > span.icon-bar { background: #fff; }
+nav.navbar-webmaster ul.dropdown-menu { border: 0; background: #fff; border-radius: 4px; margin: 4px 0; box-shadow: 0 0 4px 0 #ccc; }
+nav.navbar-webmaster ul.dropdown-menu > li > a { color: #444; }
+nav.navbar-webmaster ul.dropdown-menu > li > a:hover { background: #f14444; color: #fff; }
+nav.navbar-webmaster span.badge { background: #f14444; font-weight: normal; font-size: 11px; margin: 0 4px; }
+nav.navbar-webmaster span.badge.new { background: rgba(255, 0, 0, 0.8); color: #fff; }
+
+
+
+body{
+  background-image:url(/static/images/railway_3-wallpaper-1280x800.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+train
+.piy
+{
+width:310px;
+}
+
+img{
+  margin-left: 28px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+
+<div class="row">
+  
+<nav class="navbar navbar-webmaster">
+    <div class="container">
+      <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="{%  url 'contact' %}" class="navbar-brand" ><img src="/static/images/train-xxl.png" width=20px ></a>
+    </div>
+    
+  </div>
+</nav>
+
+</div>
+
+
+<div>
+{% verbatim %}
+<form ng-submit="save(stack,dac,FromDate)">
+
+<div class="row main">
+
+  <div class="col-md-offset-2 col-md-2">
+      <input type="text" placeholder="from station" ng-model="stack">
+  </div>
+
+
+<div class="col-md-offset-1 col-md-2">
+      <input type="text" placeholder="to station" ng-model="dac">
+  </div>
+
+
+
+  <div class="col-md-offset-1 col-md-2">
+
+      <input type="date" ng-model="FromDate" /> 
+  </div>
+</div>
+
+
+
+<div class="row second">
+  <div class="col-md-offset-5 col-centered">
+
+    <button type="submit" class="btn btn-default" >Search</button>
+
+  </div>
+</div>
+
+</form>
+
+
+<br>
+
+
+
+</div>
+
+
+<!-- <div ng-repeat="x in train">
+<div ng-repeat="y in x.days">
+{{y["day-code"]}}{{y.runs}}
+</div>
+</div>
+ -->
+
+
+<div class="row">
+  <div>
+    <table class="table" ng-show="main">
+    <thead class="thead-inverse"> 
+      <tr>
+        <th>Sno</th>
+        <th>Train No</th>
+        <th>Train name</th>
+        
+
+      
+           
+            <th align="center">Runs on (From station)</th>
+           
+        
+        <th>From</th>
+        <th>Departure</th>
+        <th align="center">To</th>
+        <th>Arrival</th>
+        <th>Travel time</th>
+      
+        
+
+      </tr>
+    </thead>
+    
+    <tbody>
+        
+      <tr ng-repeat="x in train">
+        
+        <td>{{x[0]['name']}}</td>
+        <td>{{x.name}}</td>
+        <td>{{x.number}}</td>
+
+        <td class="piy">
+        <span ng-repeat="y in x.days">
+
+      &nbsp;{{y["day-code"]}}&nbsp;
+      </span>
+      <br>
+      <span ng-repeat="y in x.days">
+
+      &nbsp;&nbsp;&nbsp;&nbsp;{{y.runs}}&nbsp;&nbsp;&nbsp;
+      </span>
+           <!-- <td>J</td>
+            <td>J</td>
+             <td>J</td>
+             <td>J</td>
+             <td>J</td>
+             <td>J</td>
+             <td>J</td> -->
+
+        </td>
+
+
+        <td>{{x.from.name}}&nbsp;/&nbsp;{{x.from.code}}</td>
+        <td align="center">{{x.src_departure_time}}</td>
+
+        <td>{{x.to.name}}&nbsp;/&nbsp;{{x.to.code}}</td>
+        <td>{{x.dest_arrival_time}}</td>
+        <td>{{x.travel_time}}</td>
+
+
+
+    
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
+</div>
+
+
+</div>
+</body>
+{% endverbatim %}
+</html>
