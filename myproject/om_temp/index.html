@@ -2,7 +2,8 @@
 {% static "images" as baseUrl %}
 <!DOCTYPE html>
 <!-- <html lang="en" ng-app="myApp" ng-controller="myCtrl"></html>-->
-<html lang="en">
+
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
 <head>
 <title>सुवर्ण कोंकण</title>
 <meta charset="utf-8">
@@ -16,6 +17,11 @@
 <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'styles/main_styles.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'styles/responsive.css' %}">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
 <body>
 
@@ -29,10 +35,10 @@
 				<div class="col">
 					<div class="header_content d-flex flex-row align-items-center justify-content-start">
 						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
-							<div class="logo"><a href="index.html">सुवर्ण कोंकण</a></div>
+							<div class="logo"><a href="/">सुवर्ण कोंकण</a></div>
 							<nav class="main_nav">
 								<ul class="d-flex flex-row align-items-start justify-content-start">
-									<li class="active"><a href="index.html">Home</a></li>
+									<li class="active"><a href="/">Home</a></li>
 									<li><a href="accounts/contact">Contact</a></li>
 									{% if user.is_authenticated%}
 									<li>Hello , {{user.first_name}}</li>
@@ -172,7 +178,41 @@
 	</div>
 
 	<!-- Search -->
-
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('myCtrl', function($scope, $http,$filter) {
+		  $scope.main=false; 
+		  $scope.train=[];
+		  $scope.save = function(abc,bcd,dat){ 
+			  $scope.main=true; 
+			  $scope.main=$filter('date')(dat, 'dd-MM-yyyy');
+			var date=$scope.main;
+			console.log(date);
+			//ta7aelkksu ----lxcbzr82bf
+			$http.get("https://api.railwayapi.com/v2/between/source/"+abc+"/dest/"+bcd+"/date/"+date+"/apikey/ta7aelkksu/",
+		  ).then(function (response) {
+			  $scope.train = response.data.trains;
+			  // $scope.trains ="29:89";
+			  // $scope.traind= $scope.trains.slice(0, 2);
+			  // $scope.trainds= $scope.trains.slice(3, 6);
+			  //  $scope.t=   parseInt($scope.traind);
+			  //   $scope.ts=   parseInt($scope.trainds);     
+		
+			  console.log($scope.train);
+		
+			}, 
+			function myError(response) {
+			  $scope.myWelcome3 = response.statusText;
+			  console.log($scope.myWelcome3);
+		  });
+		
+		} 
+		
+		
+		
+		});
+	</script>
+	{% verbatim %}
 	<div class="home_search">
 		<div class="container">
 			<div class="row">
@@ -180,13 +220,12 @@
 					<div class="home_search_container">
 						<div class="home_search_title">Search for IRCTC</div>
 						<div class="home_search_content">
-							<form action="#" class="home_search_form" id="home_search_form">
+							<form ng-submit="save(stack,dac,FromDate)" >
 								<div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
-									<input type="text" class="search_input search_input_1" placeholder="Origin" required="required">
-									<input type="text" class="search_input search_input_2" placeholder="Destination" required="required">
-									<input type="text" class="search_input search_input_3" placeholder="Date" required="required">
-									<input type="text" class="search_input search_input_4" placeholder="Journey class" required="required">
-									<button class="home_search_button">search</button>
+									<input type="text" class="search_input search_input_1" placeholder="Source" required="required" ng-model="stack">
+									<input type="text" class="search_input search_input_2" placeholder="Destination" required="required" ng-model="dac">
+									<input type="date" class="search_input search_input_3" placeholder="Date" required="required" ng-model="FromDate">
+									<button type="submit" class="home_search_button">search</button>
 								</div>
 							</form>
 						</div>
@@ -195,7 +234,108 @@
 			</div>
 		</div>
 	</div>
+	<!-- <form ng-submit="save(stack,dac,FromDate)">
 
+		<div class="row main">
+		
+		  <div class="col-md-offset-2 col-md-2">
+			  <input type="text" placeholder="from station" ng-model="stack">
+		  </div>
+		
+		
+		<div class="col-md-offset-1 col-md-2">
+			  <input type="text" placeholder="to station" ng-model="dac">
+		  </div>
+		
+		
+		
+		  <div class="col-md-offset-1 col-md-2">
+		
+			  <input type="date" ng-model="FromDate" /> 
+		  </div>
+		</div>
+		
+		
+		
+		<div class="row second">
+		  <div class="col-md-offset-5 col-centered">
+		
+			<button type="submit" class="btn btn-default" >Search</button>
+		
+		  </div>
+		</div>
+		
+		</form>
+		
+		
+		<br>
+		
+		
+		
+		</div> -->
+		
+	<div class="row">
+		<div>
+		  <table class="table" ng-show="main">
+		  <thead class="thead-inverse"> 
+			<tr>
+			  <th>Train No</th>
+			  <th>Train name</th>
+			  <th align="center">Runs on (From station)</th>
+			  <th>From</th>
+			  <th>Departure</th>
+			  <th align="center">To</th>
+			  <th>Arrival</th>
+			  <th>Travel time</th>
+			
+			</tr>
+		  </thead>
+		  
+		  <tbody>
+			<tr ng-repeat="x in train">
+			  
+			  <td>{{x.number}}</td>
+			  <td>{{x.name}}</td>
+			  
+			  <td class="piy">
+			  <span ng-repeat="y in x.days">
+	  
+			&nbsp;{{y["day-code"]}}&nbsp;
+			</span>
+			<br>
+			<span ng-repeat="y in x.days">
+	  
+			&nbsp;&nbsp;&nbsp;&nbsp;{{y.runs}}&nbsp;&nbsp;&nbsp;
+			</span>
+			  <!-- <td>J</td>
+				  <td>J</td>
+				   <td>J</td>
+				   <td>J</td>
+				   <td>J</td>
+				   <td>J</td>
+				   <td>J</td>  -->
+	  
+			  </td>
+	  
+	  
+			  <td>{{x.from_station.name}}&nbsp;/&nbsp;{{x.from_station.code}}</td>
+			  <td align="center">{{x.src_departure_time}}</td>
+	  
+			  <td>{{x.to_station.name}}&nbsp;/&nbsp;{{x.to_station.code}}</td>
+			  <td>{{x.dest_arrival_time}}</td>
+			  <td>{{x.travel_time}}</td>
+	  
+	  
+	  
+		  
+			</tr>
+		  </tbody>
+		</table>
+	  
+	  
+	  </div>
+	</div>
+	{% endverbatim %}
 	<!-- Intro -->
 
 	<div class="intro">
@@ -212,7 +352,7 @@
 									<div class="intro_icon"><img src="{% static 'images/beach.svg' %}" alt=""></div>
 									<div class="intro_content">
 										<div class="intro_title">Top Destinations</div>
-										<div class="intro_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
+										<div class="intro_subtitle"><p>Kunkeshwar,Malwan</p></div>
 									</div>
 								</div>
 							</div>
