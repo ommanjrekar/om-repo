@@ -41,7 +41,7 @@
 									<li class="active"><a href="/">Home</a></li>
 									<li><a href="accounts/contact">Contact</a></li>
 									{% if user.is_authenticated%}
-									<li>Hello , {{user.first_name}}</li>
+									<li><b>Hi,{{user.first_name}}</b></li>
 									<li><a href="accounts/logout">Logout</a></li>
 									{% else %}
 									<li><a href="accounts/register">Register</a></li>
@@ -79,12 +79,12 @@
 
 	<div class="menu">
 		<div class="menu_header d-flex flex-row align-items-center justify-content-start">
-			<div class="menu_logo"><a href="index.html">Travello</a></div>
+			<div class="menu_logo"><a href="/">Travello</a></div>
 			<div class="menu_close_container ml-auto"><div class="menu_close"><div></div><div></div></div></div>
 		</div>
 		<div class="menu_content">
 			<ul>
-				<li><a href="inex.html">Home</a></li>
+				<li><a href="/">Home</a></li>
 				<li><a href="accounts/contact">Contact</a></li>
 				{% if user.is_authenticated%}
 				<li>Hello , {{user.first_name}}</li>
@@ -274,11 +274,14 @@
 		
 		</div> -->
 		
+			<div class="container">
+					
 	<div class="row">
 		<div>
 		  <table class="table" ng-show="main">
 		  <thead class="thead-inverse"> 
 			<tr>
+			<th>Train No</th>
 			  <th>Train No</th>
 			  <th>Train name</th>
 			  <th align="center">Runs on (From station)</th>
@@ -293,17 +296,17 @@
 		  
 		  <tbody>
 			<tr ng-repeat="x in train">
-			  
-			  <td>{{x.number}}</td>
-			  <td>{{x.name}}</td>
+			<td><b style="background-color:Black;">{{$index}}</b></td>
+			  <td><b style="background-color:Black;">{{x.number}}</b></td>
+			  <td><b style="background-color:Black;">{{x.name}}</b></td>
 			  
 			  <td class="piy">
 			  <span ng-repeat="y in x.days">
-	  
 			&nbsp;{{y["day-code"]}}&nbsp;
 			</span>
 			<br>
 			<span ng-repeat="y in x.days">
+				<b style="background-color:Black;">
 	  
 			&nbsp;&nbsp;&nbsp;&nbsp;{{y.runs}}&nbsp;&nbsp;&nbsp;
 			</span>
@@ -314,16 +317,16 @@
 				   <td>J</td>
 				   <td>J</td>
 				   <td>J</td>  -->
+				</b>
+						  </td>
 	  
-			  </td>
 	  
+			  <td><b style="background-color:Black;">{{x.from_station.name}}&nbsp;/&nbsp;{{x.from_station.code}}</h1></td>
+			  <td align="center"><b style="background-color:Black;">{{x.src_departure_time}}</b></td>
 	  
-			  <td>{{x.from_station.name}}&nbsp;/&nbsp;{{x.from_station.code}}</td>
-			  <td align="center">{{x.src_departure_time}}</td>
-	  
-			  <td>{{x.to_station.name}}&nbsp;/&nbsp;{{x.to_station.code}}</td>
-			  <td>{{x.dest_arrival_time}}</td>
-			  <td>{{x.travel_time}}</td>
+			  <td><b style="background-color:Black;">{{x.to_station.name}}&nbsp;/&nbsp;{{x.to_station.code}}</h1></td>
+			  <td><b style="background-color:Black;">{{x.dest_arrival_time}}</b></td>
+			  <td><b style="background-color:Black;">{{x.travel_time}}</b></td>
 	  
 	  
 	  
@@ -331,13 +334,14 @@
 			</tr>
 		  </tbody>
 		</table>
-	  
+	</div>
+
 	  
 	  </div>
 	</div>
 	{% endverbatim %}
 	<!-- Intro -->
-
+	
 	<div class="intro">
 		<div class="intro_background" style="background-image:url(static/images/intro.png)"></div>
 		<div class="container">
@@ -348,17 +352,17 @@
 
 							<!-- Intro Item -->
 							<div class="col-lg-4 intro_col">
-								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
-									<div class="intro_icon"><img src="{% static 'images/beach.svg' %}" alt=""></div>
+								<!-- <div class="intro_item d-flex flex-row align-items-end justify-content-start"> -->
+									<!-- <div class="intro_icon"><img src="{% static 'images/beach.svg' %}" alt=""></div>
 									<div class="intro_content">
 										<div class="intro_title">Top Destinations</div>
 										<div class="intro_subtitle"><p>Kunkeshwar,Malwan</p></div>
-									</div>
-								</div>
+									</div> -->
+								<!-- </div> -->
 							</div>
 
-							<!-- Intro Item -->
-							<div class="col-lg-4 intro_col">
+							<!-- Intro Item  -->
+							<!-- <div class="col-lg-4 intro_col">
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
 									<div class="intro_icon"><img src="{% static 'images/wallet.svg' %}" alt=""></div>
 									<div class="intro_content">
@@ -366,10 +370,10 @@
 										<div class="intro_subtitle"><p>Sollicitudin mauris lobortis in.</p></div>
 									</div>
 								</div>
-							</div>
+							</div> -->
 
 							<!-- Intro Item -->
-							<div class="col-lg-4 intro_col">
+							<!-- <div class="col-lg-4 intro_col">
 								<div class="intro_item d-flex flex-row align-items-end justify-content-start">
 									<div class="intro_icon"><img src="{% static 'images/suitcase.svg' %}" alt=""></div>
 									<div class="intro_content">
@@ -377,7 +381,7 @@
 										<div class="intro_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
 									</div>
 								</div>
-							</div>
+							</div>  -->
 
 						</div>
 					</div>
@@ -443,33 +447,33 @@
 							
 							<!-- Slide -->
 							<div class="owl-item text-center">
-								<div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. lobortis dolor. Cras placerat lectus a posuere aliquet. Curabitur quis vehicula odio.</div>
+								<div class="testimonial">Why to go abroad when beautiful places are there in India itself , Visit konkan - Another slice of paradise </div>
 								<div class="testimonial_author">
 									<div class="testimonial_author_content d-flex flex-row align-items-end justify-content-start">
-										<div>john turner,</div>
-										<div>client</div>
+										<div>Om Manjrekar</div>
+										
 									</div>
 								</div>
 							</div>
 
 							<!-- Slide -->
 							<div class="owl-item text-center">
-								<div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. lobortis dolor. Cras placerat lectus a posuere aliquet. Curabitur quis vehicula odio.</div>
+								<div class="testimonial">Why to go abroad when beautiful places are there in India itself , Visit konkan - Another slice of paradise </div>
 								<div class="testimonial_author">
 									<div class="testimonial_author_content d-flex flex-row align-items-end justify-content-start">
-										<div>john turner,</div>
-										<div>client</div>
+										<div>Om Manjrekar</div>
+										
 									</div>
 								</div>
 							</div>
 
 							<!-- Slide -->
 							<div class="owl-item text-center">
-								<div class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. lobortis dolor. Cras placerat lectus a posuere aliquet. Curabitur quis vehicula odio.</div>
+								<div class="testimonial">Why to go abroad when beautiful places are there in India itself , Visit konkan - Another slice of paradise</div>
 								<div class="testimonial_author">
 									<div class="testimonial_author_content d-flex flex-row align-items-end justify-content-start">
-										<div>john turner,</div>
-										<div>client</div>
+										<div>Om Manjrekar</div>
+										
 									</div>
 								</div>
 							</div>
@@ -504,14 +508,14 @@
 									<div>02</div>
 									<div>june</div>
 								</div>
-								<div class="news_post_title"><a href="#">Best tips to travel light</a></div>
+								<div class="news_post_title"><h2>Cashews</h2></div>
 								<div class="news_post_category">
 									<ul>
-										<li><a href="#">lifestyle & travel</a></li>
+										<li>lifestyle & travel</li>
 									</ul>
 								</div>
 								<div class="news_post_text">
-									<p>Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo. Vivamus massa.Tempor massa et laoreet.</p>
+									<p>A popular ingredient finding its way into many Indian gravies</p>
 								</div>
 							</div>
 						</div>
@@ -524,14 +528,14 @@
 									<div>01</div>
 									<div>june</div>
 								</div>
-								<div class="news_post_title"><a href="#">Best tips to travel light</a></div>
+								<div class="news_post_title"><h2>Alphonso</h2></div>
 								<div class="news_post_category">
 									<ul>
 										<li><a href="#">lifestyle & travel</a></li>
 									</ul>
 								</div>
 								<div class="news_post_text">
-									<p>Tempor massa et laoreet malesuada. Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo.</p>
+									<p>Called the king of mangoes, Alphonso, known as 'Hapus' in Maharashtra</p>
 								</div>
 							</div>
 						</div>
@@ -544,14 +548,14 @@
 									<div>29</div>
 									<div>may</div>
 								</div>
-								<div class="news_post_title"><a href="#">Best tips to travel light</a></div>
+								<div class="news_post_title"><h2> Beautiful Temples </h2></div>
 								<div class="news_post_category">
 									<ul>
 										<li><a href="#">lifestyle & travel</a></li>
 									</ul>
 								</div>
 								<div class="news_post_text">
-									<p>Vivamus massa.Tempor massa et laoreet malesuada. Aliquam nulla nisl, accumsan sit amet mattis.</p>
+									<p>Coastal Maharashtra is home to number of temples that are very scenic, steeped in ancient traditions and very significant regionally.</p>
 								</div>
 							</div>
 						</div>
@@ -570,7 +574,7 @@
 							</div>
 						</div>
 						<div class="travello_container">
-							<a href="#">
+							<a href="https://samantbeachresort.com/">
 								<div class="d-flex flex-column align-items-center justify-content-end">
 									<span class="travello_title">Get a 20% Discount</span>
 									<span class="travello_subtitle">Buy Your Vacation Online Now</span>
@@ -596,9 +600,9 @@
 							<div class="newsletter_subtitle">Join our database NOW!</div>
 						</div>
 						<div class="newsletter_form_container">
-							<form action="#" class="newsletter_form d-flex flex-md-row flex-column align-items-start justify-content-between" id="newsletter_form">
+							<form action="/"  class="newsletter_form d-flex flex-md-row flex-column align-items-start justify-content-between" id="newsletter_form">
 								<div class="d-flex flex-md-row flex-column align-items-start justify-content-between">
-									<div><input type="text" class="newsletter_input newsletter_input_name" id="newsletter_input_name" placeholder="Name" required="required"><div class="input_border"></div></div>
+									<div><input type="text"  class="newsletter_input newsletter_input_name" id="newsletter_input_name" placeholder="Name" required="required"><div class="input_border"></div></div>
 									<div><input type="email" class="newsletter_input newsletter_input_email" id="newsletter_input_email" placeholder="Your e-mail" required="required"><div class="input_border"></div></div>
 								</div>
 								<div><button class="newsletter_button">subscribe</button></div>
