@@ -2,9 +2,16 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models  import User,auth
 from django.contrib import messages
 import datetime
+from django.conf import settings
 
 def home(request):
     return render(request,'home.html')
+
+def my_view(request):
+    context = {
+        'api_key': settings.API_KEY
+    }
+    return render('index.html', context)
 
 def login(request):
     if request.method == 'POST':
@@ -62,6 +69,9 @@ def between(request):
 def tz(request):
     now = datetime.datetime.now()
     return render(request,'/',{'time':now})
+
+def subscribe(request):
+    return render(request,'/')
 
 
 

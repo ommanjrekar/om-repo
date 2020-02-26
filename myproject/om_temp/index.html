@@ -189,7 +189,7 @@
 			var date=$scope.main;
 			console.log(date);
 			//ta7aelkksu ----lxcbzr82bf
-			$http.get("https://api.railwayapi.com/v2/between/source/"+abc+"/dest/"+bcd+"/date/"+date+"/apikey/ta7aelkksu/",
+			$http.get("https://api.railwayapi.com/v2/between/source/"+abc+"/dest/"+bcd+"/date/"+date+"/apikey/{{API_KEY}}/",
 		  ).then(function (response) {
 			  $scope.train = response.data.trains;
 			  // $scope.trains ="29:89";
