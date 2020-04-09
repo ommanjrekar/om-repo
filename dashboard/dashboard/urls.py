@@ -1,4 +1,4 @@
-"""poll_example URL Configuration
+"""dashboard URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -14,13 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from poll import views as poll_views
+from django.urls import path
+from dashboard import views as dash_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', poll_views.home, name='home'),
-    path('create/', poll_views.create, name='create'),
-    path('vote/<poll_id>/', poll_views.vote, name='vote'),
-    path('results/<poll_id>/', poll_views.results, name='results'),
+    path('',dash_view.goto_dash, name = 'home'),
+    path('dashboard/', dash_view.dashboard, name = 'dashboard')
 ]

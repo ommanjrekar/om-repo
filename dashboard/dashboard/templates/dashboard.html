@@ -1,0 +1,62 @@
+{% block main %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+  padding: 15px;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+  <form method="POST" style="margin: 0" align = "center">
+    {% csrf_token %}
+    <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+    <button id="search_submit" type="submit" >Submit</button>
+  </form>
+    {% if resp == ''%}
+    <table align = "center" bgcolor="#00FF00" style="width:100%" cellspacing="40">
+      <tr>
+        <th>Name</th>
+        <th>Date of joining</th>
+        <th>Education</th>
+        <th>Location</th>
+      </tr>
+      {% for emp in emp %}
+      <tr>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.doj }}</td>
+        <td>{{ emp.edu }}</td>
+        <td>{{ emp.loc }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% elif resp != '' %}
+    <table align = "center" bgcolor="#00FF00" style="width:100%" cellspacing="40">
+      <tr>
+        <th>Name</th>
+        <th>Date of joining</th>
+        <th>Education</th>
+        <th>Location</th>
+      </tr>
+      {% for resp in resp %}
+      <tr>
+        <td>{{ resp.name }}</td>
+        <td>{{ resp.doj }}</td>
+        <td>{{ resp.edu }}</td>
+        <td>{{ resp.loc }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+    
+</body>
+</html>
+{% endblock %}
